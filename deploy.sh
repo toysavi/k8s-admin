@@ -2,6 +2,8 @@
 # A script to deploy the application
 echo "Starting deployment..."
 
+kubectl create namespace blue || echo "Namespace 'blue' already exists."
+
 # Pull the latest changes from the repository
 git fetch origin && git checkout main
 
