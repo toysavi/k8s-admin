@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: blue
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-page
+  namespace: blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blue-page
+  template:
+    metadata:
+      labels:
+        app: blue-page
+    spec:
+      containers:
+      - name: blue-page
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+      volumes:
+      - name: html-volume
+        configMap:
+          name: blue-page-html
