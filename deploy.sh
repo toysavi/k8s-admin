@@ -4,10 +4,6 @@ echo "Starting deployment..."
 
 
 
-# Pull the latest changes from the repository
-git reset --hard && git pull origin main
-chmod 777 * -R
-
 # -------------------------- Deploy the blue version of the application --------------------------
 
 
