@@ -7,7 +7,7 @@ echo "Ingress NGINX built successfully."
 
 # Build metaLB LoadBalancer
 echo "Starting build metallb..."
-kubectl apply -f build/metallb-systsem.yaml
+kubectl apply -f build/metallb-system.yaml
 
 echo "Metallb built successfully."
 
