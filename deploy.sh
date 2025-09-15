@@ -5,9 +5,10 @@ echo "Starting deployment..."
 
 
 # Pull the latest changes from the repository
-git fetch origin && git checkout main
+git reset --hard && git pull origin main
+chmod 777 * -R
 
-echo "Pulled latest changes from repository."
+# -------------------------- Deploy the blue version of the application --------------------------
 
 
 kubectl create namespace blue || echo "Namespace 'blue' already exists."
