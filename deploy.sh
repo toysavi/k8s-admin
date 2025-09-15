@@ -1,27 +1,19 @@
 #!/bin/bash
-# A script to deploy the application
 echo "Starting deployment..."
-
-
-
-# -------------------------- Deploy the blue version of the application --------------------------
-
 
 kubectl create namespace blue || echo "Namespace 'blue' already exists."
 
-# Deploy ingress 'nginx'
+# Deploy ingress
 kubectl apply -f ingress/blue-ingress.yaml
 
-
-# Deploy configmap
+# Deploy ConfigMap
 kubectl apply -f configmap/blue-configmap.yaml
 
+# Deploy the application and trigger rollout by updating annotation
+REVISION=$(date +%s)
+kubectl patch deployment blue-page -n blue -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"configmap.revision\":\"$REVISION\"}}}}}"
 
-# Deploy the blue version of the application
-kubectl apply -f deployment/blue-deployment.yaml
-
-# Expose the blue version of the application via a LoadBalancer service
+# Ensure service exists
 kubectl apply -f deployment/blue-service.yaml
 
 echo "Deployment completed successfully."
-
